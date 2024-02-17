@@ -12,7 +12,7 @@ wordcloud = WordCloud(background_color="white",font_path = font_path ,width = 80
 wordcloud.generate(txt)
 wordcloud.to_file("./sample.png")
 
-plt.figure(figsize=(10,10))
-plt.imshow(wordcloud, interprolation="bilinear")
-plt.axis("off")
-plt.show()
+# plt.figure(figsize=(10,10))
+# plt.imshow(wordcloud, interprolation="bilinear")
+# plt.axis("off")
+# plt.show()
