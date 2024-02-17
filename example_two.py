@@ -1,49 +1,39 @@
 from wordcloud import WordCloud
-import MeCab
  
-# 取り込む品詞
-cat1_list = ['名詞']
+FONT_PATH = "/usr/share/fonts/opentype/font-awesome/FontAwesome.otf"
+TXT_NAME = "debate"
  
-# 除外する品詞の詳細分類
-cat2_list = ['代名詞', '非自立', '接尾']
  
-m = MeCab.Tagger('-Ochasen -d /usr/local/lib/mecab')
-m.parse('')
+def get_word_str(text):
+    import MeCab
+    import re
  
-def word_wakati(text):
-    """
-    分かち書きテキストを返す
-    """
-    node = m.parseToNode(text)
-    wd_list = []
-    while node:
-        cat1 = node.feature.split(',')[0]
-        cat2 = node.feature.split(',')[1]
-        if cat1 in cat1_list and cat2 not in cat2_list:
-            wd_list.append(node.surface)
+    mecab = MeCab.Tagger()
+    parsed = mecab.parse(text)
+    lines = parsed.split('\n')
+    lines = lines[0:-2]
+    word_list = []
  
-        node = node.next
+    for line in lines:
+        tmp = re.split('\t|,', line)
  
-    return ' '.join(wd_list)
+        # 名詞のみ対象
+        if tmp[1] in ["名詞"]:
+            # さらに絞り込み
+            if tmp[2] in ["一般", "固有名詞"]:
+                word_list.append(tmp[0])
  
-def word_cloud_square(text_wakati):
-    """
-    ワードクラウドの作成
-    """
-    # font_pathに日本語フォントへのパスを指定する
-    wc = WordCloud(background_color='white',
-        font_path='/usr/share/fonts/opentype/ipaexfont-mincho/ipaexm.ttf',
-        width=500,height=500)
-    wc.generate(text_wakati)
+    return " " . join(word_list)
  
-    wc.to_file("./make_image/wcloud_square.png")
  
-def main():
-    with open('debate.txt', 'r') as f1:
-        debate = f1.read()
+# テキストファイル読み込み
+read_text = open(TXT_NAME + ".txt", encoding="utf8").read()
  
-    debate_wakati = word_wakati(debate)
-    word_cloud_square(debate_wakati)
+# 文字列取得
+word_str = get_word_str(read_text)
  
-if __name__ == '__main__':
-    main()
+# 画像作成
+wc = WordCloud(font_path=FONT_PATH, max_font_size=40).generate(word_str)
+ 
+# 画像保存（テキストファイル名で）
+wc.to_file(TXT_NAME + ".png")
