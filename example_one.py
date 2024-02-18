@@ -11,8 +11,3 @@ font_path = '/usr/share/fonts/truetype/freefont/FreeMonoBoldOblique.ttf'
 wordcloud = WordCloud(background_color="white",font_path = font_path ,width = 800,height = 600)
 wordcloud.generate(txt)
 wordcloud.to_file("./sample.png")
-
-# plt.figure(figsize=(10,10))
-# plt.imshow(wordcloud, interprolation="bilinear")
-# plt.axis("off")
-# plt.show()
