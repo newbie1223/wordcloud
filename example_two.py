@@ -1,6 +1,6 @@
 from wordcloud import WordCloud
  
-FONT_PATH = "/usr/share/fonts/opentype/font-awesome/FontAwesome.otf"
+FONT_PATH = "/usr/share/fonts/truetype/fonts-japanese-gothic.ttf"
 TXT_NAME = "debate"
  
  
