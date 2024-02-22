@@ -1,7 +1,7 @@
 from wordcloud import WordCloud
  
 FONT_PATH = "/usr/share/fonts/truetype/fonts-japanese-gothic.ttf"
-TXT_NAME = "debate"
+TXT_NAME = "song"
  
  
 def get_word_str(text):
